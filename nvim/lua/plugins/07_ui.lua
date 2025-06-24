@@ -98,7 +98,7 @@ return {
 	{ "ryanoasis/vim-devicons" },
 	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = { "nvim-tree/nvim-web-devicons", "folke/noice.nvim" },
 		opts = {
 			options = {
 				icons_enabled = true,
