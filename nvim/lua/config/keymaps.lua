@@ -34,10 +34,18 @@ function M.setup_global()
 	-- Paste in visual mode without yanking replaced text
 	vim.keymap.set("x", "p", [["_dP]])
 
-	-- yank to clipboard
-	vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-	-- yank line to clipboard
-	vim.keymap.set("n", "<leader>Y", [["+Y]])
+	-- yank setting
+	if vim.env.SSH_TTY then
+		-- yank to clipboard
+		vim.keymap.set({ "n", "v" }, "<leader>y", [[y]])
+		-- yank line to clipboard
+		vim.keymap.set("n", "<leader>Y", [[Y]])
+	else
+		-- yank to clipboard
+		vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+		-- yank line to clipboard
+		vim.keymap.set("n", "<leader>Y", [["+Y]])
+	end
 
 	-- delete without yanking
 	vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
