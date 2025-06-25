@@ -99,30 +99,76 @@ return {
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons", "folke/noice.nvim" },
-		opts = {
-			options = {
-				icons_enabled = true,
-				component_separators = "|",
-				section_separators = "",
-			},
-			sections = {
-				lualine_x = {
-					{
+		config = function()
+			local os_icon = (function()
+				local uname = vim.loop.os_uname().sysname:lower()
+				if uname:match("linux") then
+					local distro = vim.fn
+						.system("lsb_release -si 2>/dev/null || cat /etc/os-release 2>/dev/null | grep '^ID=' | cut -d'=' -f2")
+						:gsub("%s+", "")
+						:lower()
+					if distro:match("rocky") or distro:match("rhel") then
+						return "󱄛"
+					elseif distro:match("ubuntu") then
+						return "󰕈"
+					else
+						return "󰌽"
+					end
+				elseif uname:match("darwin") then
+					return ""
+				elseif uname:match("windows") then
+					return "󰖳"
+				end
+				return ""
+			end)()
+
+			require("lualine").setup({
+				options = {
+					icons_enabled = true,
+					component_separators = "|",
+					section_separators = "",
+				},
+				sections = {
+					lualine_c = {
+						{
+							function()
+								local icons = require("nvim-web-devicons")
+								local folder_icon = icons.get_icon("folder", "folder", { default = true })
+								return folder_icon .. " " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
+							end,
+						},
+						{ "filename" },
+					},
+					lualine_x = {
+						{
+							function()
+								local ok, noice = pcall(require, "noice")
+								if ok then
+									return noice.api.statusline.mode.get()
+								end
+								return ""
+							end,
+							cond = function()
+								local ok, noice = pcall(require, "noice")
+								return ok and noice.api.statusline.mode.has()
+							end,
+						},
+					},
+
+					lualine_y = {
+						{ "encoding" },
 						function()
-							local ok, noice = pcall(require, "noice")
-							if ok then
-								return noice.api.statusline.mode.get()
-							end
-							return ""
+							return os_icon
 						end,
-						cond = function()
-							local ok, noice = pcall(require, "noice")
-							return ok and noice.api.statusline.mode.has()
-						end,
+						{ "filetype" },
+					},
+					lualine_z = {
+						{ "progress" },
+						{ "location" },
 					},
 				},
-			},
-		},
+			})
+		end,
 	},
 	{
 		"catppuccin/nvim",
