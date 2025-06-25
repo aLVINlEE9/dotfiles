@@ -144,7 +144,7 @@ return {
 						bufferline.style_preset.no_italic,
 						bufferline.style_preset.no_bold,
 					},
-					separator_style = "slope",
+					separator_style = "thick",
 					show_buffer_close_icons = false,
 				},
 			})
@@ -221,30 +221,6 @@ return {
 					"TelescopeResultsTitle",
 					"TelescopePreviewTitle",
 
-					-- BufferLine
-					"BufferLineBackground",
-					"BufferLineFill",
-					"BufferLineTab",
-					"BufferLineTabClose",
-					"BufferLineTabSelected",
-					"BufferLineSeparator",
-					"BufferLineSeparatorSelected",
-					"BufferLineSeparatorVisible",
-
-					-- Lualine
-					"lualine_a_normal",
-					"lualine_b_normal",
-					"lualine_c_normal",
-					"lualine_x_normal",
-					"lualine_y_normal",
-					"lualine_z_normal",
-					"lualine_a_inactive",
-					"lualine_b_inactive",
-					"lualine_c_inactive",
-					"lualine_x_inactive",
-					"lualine_y_inactive",
-					"lualine_z_inactive",
-
 					-- Trouble.nvim
 					"TroubleNormal",
 					"TroubleText",
@@ -311,6 +287,30 @@ return {
 					"Search",
 					"IncSearch",
 					"Substitute",
+
+					-- Lualine
+					"lualine_a_normal",
+					"lualine_b_normal",
+					"lualine_c_normal",
+					"lualine_x_normal",
+					"lualine_y_normal",
+					"lualine_z_normal",
+					"lualine_a_inactive",
+					"lualine_b_inactive",
+					"lualine_c_inactive",
+					"lualine_x_inactive",
+					"lualine_y_inactive",
+					"lualine_z_inactive",
+
+					-- BufferLine
+					"BufferLineBackground",
+					"BufferLineFill",
+					"BufferLineTab",
+					"BufferLineTabClose",
+					"BufferLineTabSelected",
+					"BufferLineSeparator",
+					"BufferLineSeparatorSelected",
+					"BufferLineSeparatorVisible",
 				},
 			})
 
