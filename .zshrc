@@ -1,8 +1,3 @@
-# Enable Powerlevel10k instant prompt
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 export LANG=en_US.UTF-8
 export VISUAL=nvim
 
@@ -57,6 +52,13 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 fi
 
 # Tmux auto start
-if [[ -z "$TMUX" && -n "$PS1" ]]; then
-    tmux attach || tmux new-session
+autoload -Uz add-zsh-hook
+
+_zsh_tmux_auto_start() {
+  add-zsh-hook -d precmd _zsh_tmux_auto_start
+  exec tmux new-session -A -s main
+}
+
+if [[ -z "$TMUX" && -n "$PS1" && -t 0 ]]; then
+  add-zsh-hook precmd _zsh_tmux_auto_start
 fi
