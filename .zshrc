@@ -55,3 +55,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     [ -f /etc/profile.d/autojump.sh ] && . /etc/profile.d/autojump.sh
 fi
+
+# Tmux auto start
+if [[ -z "$TMUX" && -n "$PS1" ]]; then
+    tmux attach || tmux new-session
+fi
