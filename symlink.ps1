@@ -54,7 +54,7 @@ function Create-Symlink {
     }
 
     # Handle existing files or symlinks at the target location
-    if (Test-Path -Path $Target -PathType Container -or Test-Path -Path $Target -PathType Leaf) {
+    if (Test-Path -Path $Target
         if ((Get-Item $Target -Force -ErrorAction SilentlyContinue).LinkType) {
             Log-Warning "Removing existing symlink: $Target"
             Remove-Item -Path $Target -Force
