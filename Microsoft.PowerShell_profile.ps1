@@ -45,35 +45,15 @@ function Set-StatusBar {
         "$($c.StatusBg)$($c.Gray)│"
         "$($c.StatusBg)$($c.Lavender)$($c.Bold)$(Get-SessionInfo)"
         "$($c.StatusBg)$($c.Gray)│"
-    ) -join " "
+    ) -join ""
 
-    $currentPath = $PWD.Path.Replace($env:USERPROFILE, "~")
-    if ($currentPath.Length -gt 30) {
-        $pathParts = $currentPath.Split([IO.Path]::DirectorySeparatorChar)
-        if ($pathParts.Length -gt 3) {
-            $currentPath = "$($pathParts[0])/.../$(($pathParts[-2..-1]) -join '/')"
-        }
-    }
-
-    $gitBranch = ""
-    if (Get-Command git -ErrorAction SilentlyContinue) {
-        $branch = git branch --show-current 2>$null
-        if ($branch) {
-            $gitBranch = " $($c.Gray)git:$($c.Blue)$branch$($c.Reset)"
-        }
-    }
-
-    $statusContent = "$($c.StatusBg) $($c.StatusFg)$currentPath$gitBranch"
-
-    $contentLength = ($leftStatus + $statusContent).Length - ($leftStatus + $statusContent | Select-String -Pattern "`e\[[0-9;]*m" -AllMatches).Matches.Count * 10
-    $remainingSpace = $width - $contentLength
+    $remainingSpace = $width - $leftStatus.Length
     if ($remainingSpace -gt 0) {
-        $statusContent += "$($c.StatusBg)" + (" " * $remainingSpace)
+        $leftStatus += "$($c.StatusBg)" + (" " * $remainingSpace)
     }
 
     Clear-Host
     Write-Host "$leftStatus$statusContent$($c.Reset)"
-    Write-Host ("─" * $width) -ForegroundColor DarkGray
     Write-Host ""
 }
 
