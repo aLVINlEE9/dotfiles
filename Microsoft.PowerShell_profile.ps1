@@ -11,7 +11,7 @@ $script:Colors = @{
 }
 
 function Get-OSIcon {
-    return "󰖳"
+    return "󰖳 "
 }
 
 function Get-SSHStatus {
@@ -23,7 +23,7 @@ function Get-SSHStatus {
             $serverIP = $parts[2]
         }
     }
-    return "$username@$serverIP"
+    return "$username@$serverIP".PadRight(18)
 }
 
 function Get-SessionInfo {
