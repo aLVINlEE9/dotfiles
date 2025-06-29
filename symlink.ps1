@@ -81,12 +81,6 @@ function Create-Symlink {
 
 Log-Info "Linking configuration files..."
 
-# Wezterm
-$weztermSource = Join-Path $dotfilesDir "wezterm"
-if (Test-Path -Path $weztermSource) {
-    Create-Symlink -Source $weztermSource -Target (Join-Path $env:USERPROFILE ".config\wezterm")
-}
-
 # Neovim
 $nvimSource = Join-Path $dotfilesDir "nvim"
 if (Test-Path -Path $nvimSource) {
