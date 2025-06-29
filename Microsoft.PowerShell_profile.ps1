@@ -88,7 +88,6 @@ function Set-Location {
 
 function cl { Set-StatusBar }
 function clear { Set-StatusBar }
-function Clear-Host { Set-StatusBar }
 Set-Alias -Name cls -Value Set-StatusBar
 
 Set-StatusBar
