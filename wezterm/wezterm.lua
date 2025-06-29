@@ -1,11 +1,6 @@
 local wezterm = require("wezterm")
+local config = wezterm.config_builder()
 
-local config = {}
-
-if wezterm.config_builder then
-	config = wezterm.config_builder()
-end
-
-config.front_end = "Software"
+config.default_prog = { "pwsh.exe" }
 
 return config
