@@ -9,7 +9,7 @@ $script:Colors = @{
 }
 
 function Get-OSIcon {
-	return "󰖳"
+    return "󰖳"
 }
 
 function Get-SSHStatus {
@@ -27,7 +27,7 @@ function Get-SessionInfo {
     return "$sessionId`:$processId`:1"
 }
 
-function prompt {
+function Set-StatusBar {
     $c = $script:Colors
 
     $leftStatus = @(
@@ -48,9 +48,6 @@ function prompt {
         }
     }
 
-    Write-Host $leftStatus -NoNewline
-    Write-Host " $($c.Base)$currentPath$($c.Reset)" -NoNewline
-
     $gitBranch = ""
     if (Get-Command git -ErrorAction SilentlyContinue) {
         $branch = git branch --show-current 2>$null
@@ -59,16 +56,31 @@ function prompt {
         }
     }
 
+    $width = $Host.UI.RawUI.WindowSize.Width
+
+    Clear-Host
+    Write-Host $leftStatus -NoNewline
+    Write-Host " $($c.Base)$currentPath$($c.Reset)" -NoNewline
     if ($gitBranch) {
         Write-Host $gitBranch -NoNewline
     }
-
     Write-Host ""
-    Write-Host "$($c.Lavender)❯$($c.Reset) " -NoNewline
-
-    return " "
+    Write-Host ("─" * $width) -ForegroundColor DarkGray
+    Write-Host ""
 }
 
+function prompt {
+    "$($script:Colors.Lavender)❯$($script:Colors.Reset) "
+}
+
+function Set-Location {
+    Microsoft.PowerShell.Management\Set-Location @args
+    Set-StatusBar
+}
+
+function cl { Set-StatusBar }
+
+Set-StatusBar
 
 
 # Alias
@@ -82,8 +94,6 @@ function nvc {
     Set-Location "$env:USERPROFILE\.config\nvim"
     nvim
 }
-
-Set-Alias -Name cl -Value Clear-Host
 
 function lr {
     Get-ChildItem | Sort-Object LastWriteTime | Format-Table Name, Length, LastWriteTime
