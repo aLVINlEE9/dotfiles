@@ -6,6 +6,8 @@ $script:Colors = @{
     Lavender  = "`e[38;2;137;180;250m"  # #89b4fa
     Bold      = "`e[1m"
     Reset     = "`e[0m"
+    StatusBg  = "`e[48;2;30;30;46m"
+    StatusFg  = "`e[38;2;205;214;245m"
 }
 
 function Get-OSIcon {
@@ -13,12 +15,15 @@ function Get-OSIcon {
 }
 
 function Get-SSHStatus {
-    if ($env:SSH_CLIENT -or $env:SSH_TTY) {
-        $hostname = $env:COMPUTERNAME ?? $env:HOSTNAME ?? "remote"
-        return "SSH:$hostname"
-    } else {
-        return "LOCAL"
+    $serverIP = "local"
+    $username = $env:USERNAME
+    if ($env:SSH_CONNECTION) {
+        $parts = $env:SSH_CONNECTION -split ' '
+        if ($parts.Length -ge 3) {
+            $serverIP = $parts[2]
+        }
     }
+    return "$username@$serverIP"
 }
 
 function Get-SessionInfo {
@@ -31,13 +36,13 @@ function Set-StatusBar {
     $c = $script:Colors
 
     $leftStatus = @(
-        "$($c.Base)▎"
-        "$($c.Blue)$($c.Bold)$(Get-OSIcon)"
-        "$($c.Gray)│"
-        "$($c.Blue)$($c.Bold)$(Get-SSHStatus)"
-        "$($c.Gray)│"
-        "$($c.Lavender)$($c.Bold)$(Get-SessionInfo)"
-        "$($c.Gray)│$($c.Reset)"
+        "$($c.StatusBg)$($c.Base)▎"
+        "$($c.StatusBg)$($c.Blue)$($c.Bold)$(Get-OSIcon)"
+        "$($c.StatusBg)$($c.Gray)│"
+        "$($c.StatusBg)$($c.Blue)$($c.Bold)$(Get-SSHStatus)"
+        "$($c.StatusBg)$($c.Gray)│"
+        "$($c.StatusBg)$($c.Lavender)$($c.Bold)$(Get-SessionInfo)"
+        "$($c.StatusBg)$($c.Gray)│"
     ) -join " "
 
     $currentPath = $PWD.Path.Replace($env:USERPROFILE, "~")
@@ -56,15 +61,14 @@ function Set-StatusBar {
         }
     }
 
-    $width = $Host.UI.RawUI.WindowSize.Width
+    $statusContent = " $($c.StatusBg)$($c.StatusFg)$currentPath$gitBranch"
+    $remainingSpace = $width - ($leftStatus.Length + $statusContent.Length + 10)
+    if ($remainingSpace -gt 0) {
+        $statusContent += (" " * $remainingSpace)
+    }
 
     Clear-Host
-    Write-Host $leftStatus -NoNewline
-    Write-Host " $($c.Base)$currentPath$($c.Reset)" -NoNewline
-    if ($gitBranch) {
-        Write-Host $gitBranch -NoNewline
-    }
-    Write-Host ""
+    Write-Host "$leftStatus$statusContent$($c.Reset)"
     Write-Host ("─" * $width) -ForegroundColor DarkGray
     Write-Host ""
 }
@@ -79,6 +83,8 @@ function Set-Location {
 }
 
 function cl { Set-StatusBar }
+function clear { Set-StatusBar }
+Set-Alias -Name cls -Value Set-StatusBar
 
 Set-StatusBar
 
