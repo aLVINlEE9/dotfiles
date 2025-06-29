@@ -35,6 +35,8 @@ function Get-SessionInfo {
 function Set-StatusBar {
     $c = $script:Colors
 
+    $width = $Host.UI.RawUI.WindowSize.Width
+
     $leftStatus = @(
         "$($c.StatusBg)$($c.Base)▎"
         "$($c.StatusBg)$($c.Blue)$($c.Bold)$(Get-OSIcon)"
@@ -61,10 +63,12 @@ function Set-StatusBar {
         }
     }
 
-    $statusContent = " $($c.StatusBg)$($c.StatusFg)$currentPath$gitBranch"
-    $remainingSpace = $width - ($leftStatus.Length + $statusContent.Length + 10)
+    $statusContent = "$($c.StatusBg) $($c.StatusFg)$currentPath$gitBranch"
+
+    $contentLength = ($leftStatus + $statusContent).Length - ($leftStatus + $statusContent | Select-String -Pattern "`e\[[0-9;]*m" -AllMatches).Matches.Count * 10
+    $remainingSpace = $width - $contentLength
     if ($remainingSpace -gt 0) {
-        $statusContent += (" " * $remainingSpace)
+        $statusContent += "$($c.StatusBg)" + (" " * $remainingSpace)
     }
 
     Clear-Host
@@ -84,6 +88,7 @@ function Set-Location {
 
 function cl { Set-StatusBar }
 function clear { Set-StatusBar }
+function Clear-Host { Set-StatusBar }
 Set-Alias -Name cls -Value Set-StatusBar
 
 Set-StatusBar
