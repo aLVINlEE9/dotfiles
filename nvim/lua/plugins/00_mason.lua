@@ -14,6 +14,12 @@ return {
 		})
 		local ensure_installed = {
 			-- LSPs
+			"lua-language-server",
+			"clangd",
+			"rust-analyzer",
+			"pyright",
+			"bash-language-server",
+			"cmake-language-server",
 
 			-- Formatters
 			"shfmt",
@@ -21,7 +27,6 @@ return {
 			"isort",
 			"black",
 			"clang-format",
-			"rustfmt",
 			"prettierd",
 			"prettier",
 		}

@@ -133,8 +133,19 @@ return {
 				"clangd",
 				"--background-index",
 				"--clang-tidy",
+				"--header-insertion=iwyu",
 				"--completion-style=detailed",
-				"--function-arg-placeholders",
+				"--function-arg-placeholders=true",
+				"--fallback-style=llvm",
+				"--all-scopes-completion",
+				"--enable-config",
+			},
+			init_options = {
+				clangdFileStatus = true,
+				completeUnimported = true,
+				usePlaceholders = true,
+				semanticHighlighting = true,
+				fallbackFlags = { "/std:c++latest" },
 			},
 		})
 
