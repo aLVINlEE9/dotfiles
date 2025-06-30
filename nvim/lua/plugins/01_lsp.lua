@@ -58,7 +58,7 @@ return {
 			local opts = { buffer = bufnr, silent = true }
 			-- inlay hints (Neovim 0.10+)
 			if vim.fn.has("nvim-0.10") == 1 and inlay_hints.enabled then
-				if client.supports_method("textDocument/inlayHint") then
+				if client:supports_method("textDocument/inlayHint") then
 					local filetype = vim.bo[bufnr].filetype or ""
 					local exclude_list = inlay_hints.exclude or {}
 					if

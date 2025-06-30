@@ -4,7 +4,7 @@ return {
 		config = function()
 			require("auto-session").setup({
 				log_level = "error",
-				auto_session_suppress_dirs = { "~/", "~/Downloads" },
+				suppressed_dirs = { "~/", "~/Downloads" },
 			})
 		end,
 	},
@@ -28,6 +28,7 @@ return {
 			-- your configuration comes here
 			-- or leave it empty to use the default settings
 			-- refer to the configuration section below
+			notify = false,
 		},
 		keys = {
 			{

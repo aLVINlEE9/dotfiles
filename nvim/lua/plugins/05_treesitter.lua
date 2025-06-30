@@ -21,6 +21,8 @@ return {
 			"rust",
 			"python",
 			"html",
+			"regex",
+			"bash",
 		},
 		sync_install = false,
 

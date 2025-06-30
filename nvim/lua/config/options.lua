@@ -65,7 +65,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	group = HighlightYank,
 	pattern = "*",
 	callback = function()
-		vim.highlight.on_yank({
+		vim.hl.on_yank({
 			higroup = "IncSearch",
 			timeout = 40,
 		})
@@ -78,3 +78,10 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	pattern = "*",
 	command = [[%s/\s\+$//e]],
 }) -- remove trailing whitespace from all lines before saving a file
+
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_node_provider = 0
+vim.g.loaded_python3_provider = 0
