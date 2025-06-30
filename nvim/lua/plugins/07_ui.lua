@@ -1,5 +1,13 @@
 return {
 	{
+		"rcarriga/nvim-notify",
+		config = function()
+			require("notify").setup({
+				background_colour = "#000000",
+			})
+		end,
+	},
+	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {
@@ -22,6 +30,7 @@ return {
 		},
 		dependencies = {
 			-- if you lazy-load any of these icons, make sure to load them during startup
+			"nvim-treesitter/nvim-treesitter",
 			"MunifTanjim/nui.nvim",
 		},
 	},
