@@ -331,6 +331,11 @@ return {
 					"TabLine",
 					"TabLineFill",
 					"TabLineSel",
+
+					"ToggleTerm",
+					"ToggleTermBorder",
+					"FloatBorder",
+					"NormalFloat",
 				},
 				exclude_groups = {
 					"CursorLine",

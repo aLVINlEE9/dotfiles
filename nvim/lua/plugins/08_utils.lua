@@ -75,4 +75,23 @@ return {
 			})
 		end,
 	},
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		config = function()
+			require("toggleterm").setup({
+				size = 20,
+				open_mapping = [[<C-\>]],
+				shade_terminals = false,
+				start_in_insert = false,
+				close_on_exit = true,
+				winbar = {
+					enabled = false,
+					name_formatter = function(term)
+						return term.name
+					end,
+				},
+			})
+		end,
+	},
 }
