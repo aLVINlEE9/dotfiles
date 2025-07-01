@@ -1,6 +1,3 @@
-vim.opt.spell = true
-vim.opt.spelllang = "en_us"
-
 vim.opt.encoding = "utf-8" -- set encoding
 vim.opt.fileformats = { "unix", "dos" }
 vim.opt.fileencodings = { "ucs-bom", "utf-8", "cp949", "latin1" }
