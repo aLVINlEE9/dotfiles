@@ -184,6 +184,32 @@ return {
 		name = "catppuccin",
 		priority = 1000,
 		config = function()
+			require("catppuccin").setup({
+				flavour = "mocha",
+				styles = {
+					comments = { "italic" },
+					keywords = { "italic" },
+				},
+				custom_highlights = function(colors)
+					return {
+						Function = { fg = colors.blue, style = { "bold" } },
+						Keyword = { fg = colors.mauve, style = { "bold" } },
+						Type = { fg = colors.sky, style = { "bold" } },
+						Constant = { fg = colors.peach, style = { "bold" } },
+						String = { fg = colors.green },
+						Number = { fg = colors.peach },
+
+						["@keyword.operator"] = { fg = colors.sky, style = { "bold" } },
+						["@namespace"] = { fg = colors.rosewater },
+						["@type.qualifier"] = { fg = colors.flamingo, style = { "italic" } },
+						["@operator"] = { fg = colors.sky },
+						["@punctuation.bracket"] = { fg = colors.overlay2 },
+						["@punctuation.delimiter"] = { fg = colors.teal },
+						["@variable.parameter"] = { fg = colors.maroon, style = { "italic" } },
+						["@variable.member"] = { fg = colors.lavender },
+					}
+				end,
+			})
 			vim.cmd("colorscheme catppuccin")
 		end,
 	},
