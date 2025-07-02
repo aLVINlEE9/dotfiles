@@ -13,6 +13,9 @@ return {
 		local luasnip = require("luasnip")
 
 		cmp.setup({
+			completion = {
+				autocomplete = false,
+			},
 			snippet = {
 				expand = function(args)
 					luasnip.lsp_expand(args.body)
@@ -25,6 +28,10 @@ return {
 				{ name = "buffer" },
 				{ name = "path" },
 			}),
+			window = {
+				completion = cmp.config.window.bordered(),
+				documentation = cmp.config.window.bordered(),
+			},
 		})
 
 		require("config.keymaps").setup_cmp_snip()

@@ -59,6 +59,24 @@ end
 
 function M.setup_lsp(bufnr)
 	local opts = { noremap = true, silent = true, buffer = bufnr, desc = "LSP" }
+	opts.desc = "Goto Definition"
+	vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+
+	opts.desc = "Goto Implementation"
+	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+
+	opts.desc = "Goto Type Definition"
+	vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, opts)
+
+	opts.desc = "Show References"
+	vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+
+	opts.desc = "Goto Declaration"
+	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+
+	opts.desc = "Hover Documentation"
+	vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+
 	opts.desc = "Goto Preview Definition"
 	vim.keymap.set("n", "<leader>gd", function()
 		require("goto-preview").goto_preview_definition()
@@ -103,7 +121,7 @@ function M.setup_cmp()
 		["<C-k>"] = cmp.mapping.select_prev_item(),
 		["<C-j>"] = cmp.mapping.select_next_item(),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
-		["<C-Space>"] = cmp.mapping.complete(),
+		["<C-p>"] = cmp.mapping.complete(),
 	})
 end
 
