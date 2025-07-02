@@ -17,7 +17,7 @@ function M.setup_global()
 	vim.keymap.set("n", "<leader>ml", ":b#<cr>")
 
 	-- unhilight
-	vim.keymap.set("n", "<leader>h", ":noh<cr>")
+	vim.keymap.set("n", "<leader>H", ":noh<cr>")
 
 	-- move a blocks of text up/down with K/J in visual mode
 	vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
@@ -55,6 +55,11 @@ function M.setup_global()
 
 	-- search and replace the word under cursor in the file with <leader>s
 	vim.keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
+	vim.keymap.set("n", "<C-h>", "<C-w>h")
+	vim.keymap.set("n", "<C-l>", "<C-w>l")
+	vim.keymap.set("n", "<C-j>", "<C-w>j")
+	vim.keymap.set("n", "<C-k>", "<C-w>k")
 end
 
 function M.setup_lsp(bufnr)
