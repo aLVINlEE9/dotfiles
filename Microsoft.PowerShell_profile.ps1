@@ -24,3 +24,5 @@ function ...... { Set-Location ..\..\..\..\.. }
 
 $env:TERM = "xterm-256color"
 
+[System.Threading.Thread]::CurrentThread.CurrentCulture = 'en-US'
+[System.Threading.Thread]::CurrentThread.CurrentUICulture = 'en-US'
