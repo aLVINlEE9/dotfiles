@@ -2,155 +2,113 @@ local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
 local i = ls.insert_node
+local extras = require("luasnip.extras")
+local rep = extras.rep
+
+local function filename_to_guard()
+	local filename = vim.fn.expand("%:t")
+	if filename == "" then
+		return "HEADER_H_"
+	end
+	local guard = filename:upper():gsub("[.-]", "_"):gsub("%.", "_")
+	if not guard:match("_$") then
+		guard = guard .. "_"
+	end
+	return guard
+end
 
 return {
-	s(
-		{
-			trig = "hguard",
-			name = "Header Guard",
-			dscr = "C++ header guard with customizable name",
-			snippetType = "autosnippet",
-		},
-		{
-			t("#ifndef "),
-			i(1, "HEADER_NAME_H"),
-			t({ "", "#define " }),
-			i(1),
-			t({ "", "" }),
-			i(2, "// Header content"),
-			t({ "", "", "#endif // " }),
-			i(1),
-			i(0),
-		}
-	),
+	-- header guard snippet
 	s({
-		trig = "class6",
-		name = "Class with Big Six",
-		dscr = "C++ class with constructor, destructor, copy/move operations",
+		trig = "guard",
+		name = "Header Guard",
+		dscr = "C++ header guard",
 	}, {
-		t("class "),
-		i(1, "ClassName"),
-		t({ " {", "public:" }),
-		-- 생성자
-		t({ "", "\t" }),
-		i(1),
-		t("("),
-		i(2, "parameters"),
-		t(")"),
-		t({ " {", "\t\t" }),
-		i(3, "// Constructor body"),
-		t({ "", "\t}" }),
-		-- 소멸자
-		t({ "", "\t~" }),
-		i(1),
-		t({ "() {", "\t\t" }),
-		i(4, "// Destructor body"),
-		t({ "", "\t}" }),
-		-- 복사 생성자
-		t({ "", "\t" }),
-		i(1),
-		t("(const "),
-		i(1),
-		t("& other)"),
-		t({ " {", "\t\t" }),
-		i(5, "// Copy constructor body"),
-		t({ "", "\t}" }),
-		-- 복사 대입 연산자
-		t({ "", "\t" }),
-		i(1),
-		t("& operator=(const "),
-		i(1),
-		t("& other)"),
-		t({ " {", "\t\t" }),
-		i(6, "// Copy assignment body"),
-		t({ "", "\t}" }),
-		-- 이동 생성자
-		t({ "", "\t" }),
-		i(1),
-		t("("),
-		i(1),
-		t("&& other) noexcept"),
-		t({ " {", "\t\t" }),
-		i(7, "// Move constructor body"),
-		t({ "", "\t}" }),
-		-- 이동 대입 연산자
-		t({ "", "\t" }),
-		i(1),
-		t("& operator=("),
-		i(1),
-		t("&& other) noexcept"),
-		t({ " {", "\t\t" }),
-		i(8, "// Move assignment body"),
-		t({ "", "\t}" }),
-		-- 추가 멤버
-		t({ "", "private:", "\t" }),
-		i(9, "// Private members"),
-		t({ "", "};" }),
+		t("#ifndef "),
+		i(1, filename_to_guard()),
+		t({ "", "#define " }),
+		rep(1),
+		t({ "", "", "" }),
 		i(0),
+		t({ "", "", "#endif // " }),
+		rep(1),
 	}),
+
+	-- Big Six for struct
 	s({
-		trig = "struct6",
+		trig = "struct",
 		name = "Struct with Big Six",
-		dscr = "C++ struct with constructor, destructor, copy/move operations",
+		dscr = "C++ struct with Rule of Six",
 	}, {
 		t("struct "),
-		i(1, "StructName"),
-		t({ " {", "" }),
-		-- 생성자
-		t("\t"),
-		i(1),
-		t("("),
-		i(2, "parameters"),
-		t(")"),
-		t({ " {", "\t\t" }),
-		i(3, "// Constructor body"),
-		t({ "", "\t}" }),
-		-- 소멸자
-		t({ "", "\t~" }),
-		i(1),
-		t({ "() {", "\t\t" }),
-		i(4, "// Destructor body"),
-		t({ "", "\t}" }),
-		-- 복사 생성자
-		t({ "", "\t" }),
-		i(1),
+		i(1, "MyStruct"),
+		t({ " {", "\t// Default constructor", "\t" }),
+		rep(1),
+		t("() = default;"),
+		t({ "", "", "\t// Destructor", "\t~" }),
+		rep(1),
+		t("() = default;"),
+		t({ "", "", "\t// Copy constructor", "\t" }),
+		rep(1),
 		t("(const "),
-		i(1),
-		t("& other)"),
-		t({ " {", "\t\t" }),
-		i(5, "// Copy constructor body"),
-		t({ "", "\t}" }),
-		-- 복사 대입 연산자
-		t({ "", "\t" }),
-		i(1),
+		rep(1),
+		t("& other) = default;"),
+		t({ "", "", "\t// Copy assignment operator", "\t" }),
+		rep(1),
 		t("& operator=(const "),
-		i(1),
-		t("& other)"),
-		t({ " {", "\t\t" }),
-		i(6, "// Copy assignment body"),
-		t({ "", "\t}" }),
-		-- 이동 생성자
-		t({ "", "\t" }),
-		i(1),
+		rep(1),
+		t("& other) = default;"),
+		t({ "", "", "\t// Move constructor", "\t" }),
+		rep(1),
 		t("("),
-		i(1),
-		t("&& other) noexcept"),
-		t({ " {", "\t\t" }),
-		i(7, "// Move constructor body"),
-		t({ "", "\t}" }),
-		-- 이동 대입 연산자
-		t({ "", "\t" }),
-		i(1),
+		rep(1),
+		t("&& other) noexcept = default;"),
+		t({ "", "", "\t// Move assignment operator", "\t" }),
+		rep(1),
 		t("& operator=("),
-		i(1),
-		t("&& other) noexcept"),
-		t({ " {", "\t\t" }),
-		i(8, "// Move assignment body"),
-		t({ "", "\t}" }),
-		-- 추가 멤버
-		t({ "", "\t" }),
-		i(9, "// Members"),
-		t({ "", "};" }),
+		rep(1),
+		t("&& other) noexcept = default;"),
+		t({ "", "", "\t// Members", "\t" }),
 		i(0),
+		t({ "", "};" }),
+	}),
+
+	-- Big Six for class
+	s({
+		trig = "class",
+		name = "Class with Big Six",
+		dscr = "C++ class with Rule of Six",
+	}, {
+		t("class "),
+		i(1, "MyClass"),
+		t({ " {", "public:", "\t// Default constructor", "\t" }),
+		rep(1),
+		t("() = default;"),
+		t({ "", "", "\t// Destructor", "\t~" }),
+		rep(1),
+		t("() = default;"),
+		t({ "", "", "\t// Copy constructor", "\t" }),
+		rep(1),
+		t("(const "),
+		rep(1),
+		t("& other) = default;"),
+		t({ "", "", "\t// Copy assignment operator", "\t" }),
+		rep(1),
+		t("& operator=(const "),
+		rep(1),
+		t("& other) = default;"),
+		t({ "", "", "\t// Move constructor", "\t" }),
+		rep(1),
+		t("("),
+		rep(1),
+		t("&& other) noexcept = default;"),
+		t({ "", "", "\t// Move assignment operator", "\t" }),
+		rep(1),
+		t("& operator=("),
+		rep(1),
+		t("&& other) noexcept = default;"),
+		t({ "", "", "private:", "\t" }),
+		i(0),
+		t({ "", "};" }),
 	}),
 }
