@@ -18,6 +18,7 @@ return {
 			cpp = { "clang-format" },
 			cmake = { "cmake_format" },
 			rust = { "rustfmt" },
+			json = { "jq" },
 			javascript = { "prettierd", "prettier", stop_after_first = true },
 		},
 		-- Set default options
