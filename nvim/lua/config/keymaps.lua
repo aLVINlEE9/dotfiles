@@ -5,10 +5,7 @@ function M.setup_global()
 	vim.g.mapleader = " "
 
 	-- windows
-	vim.keymap.set("n", "<leader><left>", ":vertical resize +20<cr>")
-	vim.keymap.set("n", "<leader><right>", ":vertical resize -20<cr>")
-	vim.keymap.set("n", "<leader><up>", ":resize +10<cr>")
-	vim.keymap.set("n", "<leader><down>", ":resize -10<cr>")
+	-- refer on setup_windows_split() function
 
 	-- buffers
 	vim.keymap.set("n", "<leader>n", ":bn<cr>")
@@ -172,6 +169,19 @@ function M.setup_ui()
 	vim.keymap.set("n", "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", opts)
 	opts.desc = "Toggle symbols (Trouble)"
 	vim.keymap.set("n", "<leader>cs", "<cmd>Trouble symbols toggle<cr>", opts)
+end
+
+function M.setup_window_split()
+	local opts = { noremap = true, silent = true }
+
+	opts.desc = "Resize left"
+	vim.keymap.set("n", "<leader>hh", require("smart-splits").resize_left, opts)
+	opts.desc = "Resize right"
+	vim.keymap.set("n", "<leader>ll", require("smart-splits").resize_right, opts)
+	opts.desc = "Resize down"
+	vim.keymap.set("n", "<leader>jj", require("smart-splits").resize_down, opts)
+	opts.desc = "Resize up"
+	vim.keymap.set("n", "<leader>kk", require("smart-splits").resize_up, opts)
 end
 
 return M
