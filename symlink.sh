@@ -83,6 +83,10 @@ if [ -f "$DOTFILES_DIR/.zshenv" ]; then
     create_symlink "$DOTFILES_DIR/.zshenv" "$HOME/.zshenv"
 fi
 
+if [ -f "$DOTFILES_DIR/.p10k.zsh" ]; then
+    create_symlink "$DOTFILES_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
+fi
+
 # Git
 if [ -f "$DOTFILES_DIR/.gitconfig" ]; then
     create_symlink "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
