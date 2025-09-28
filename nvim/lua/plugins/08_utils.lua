@@ -77,7 +77,6 @@ return {
 	},
 	{
 		"mrjones2014/smart-splits.nvim",
-		build = "./kitty/install-kittens.bash",
 		config = function()
 			require("smart-splits").setup({
 				-- Ignored buffer types (only while resizing)
