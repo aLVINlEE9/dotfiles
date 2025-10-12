@@ -62,3 +62,5 @@ _zsh_tmux_auto_start() {
 if [[ -z "$TMUX" && -n "$PS1" && -t 0 ]]; then
   add-zsh-hook precmd _zsh_tmux_auto_start
 fi
+
+export DOTNET_ROOT="/opt/homebrew/opt/dotnet/libexec"

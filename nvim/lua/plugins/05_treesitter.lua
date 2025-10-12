@@ -23,6 +23,7 @@ return {
 			"html",
 			"regex",
 			"bash",
+			"c_sharp",
 		},
 		sync_install = false,
 

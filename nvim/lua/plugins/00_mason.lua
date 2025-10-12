@@ -20,6 +20,7 @@ return {
 			"pyright",
 			"bash-language-server",
 			"cmake-language-server",
+			"omnisharp",
 
 			-- Formatters
 			"shfmt",
@@ -29,6 +30,7 @@ return {
 			"clang-format",
 			"prettierd",
 			"prettier",
+			"csharpier",
 		}
 
 		local mr = require("mason-registry")

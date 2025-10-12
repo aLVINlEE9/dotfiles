@@ -20,6 +20,7 @@ return {
 			rust = { "rustfmt" },
 			json = { "jq" },
 			javascript = { "prettierd", "prettier", stop_after_first = true },
+			cs = { "csharpier" },
 		},
 		-- Set default options
 		default_format_opts = {
