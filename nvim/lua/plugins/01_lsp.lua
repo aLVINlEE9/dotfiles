@@ -94,6 +94,7 @@ return {
 			vim.diagnostic.config(diagnostics)
 
 			local lspconfig = require("lspconfig")
+			capabilities.positionEncoding = { "utf-8", "utf-16" }
 
 			-- Lua
 			lspconfig.lua_ls.setup({
