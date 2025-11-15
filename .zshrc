@@ -9,7 +9,11 @@ export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
 # Alias
 alias vim='nvim'
-alias t='tmux'
+
+t() {
+  tmux attach -t main 2>/dev/null || tmux new -s main
+}
+alias td='tmux detach-client'
 
 alias gits='git status'
 gitm() { git commit -m "$1" }
@@ -49,18 +53,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     [ -f /etc/profile.d/autojump.sh ] && . /etc/profile.d/autojump.sh
-fi
-
-# Tmux auto start
-autoload -Uz add-zsh-hook
-
-_zsh_tmux_auto_start() {
-  add-zsh-hook -d precmd _zsh_tmux_auto_start
-  exec tmux new-session -A -s main
-}
-
-if [[ -z "$TMUX" && -n "$PS1" && -t 0 ]]; then
-  add-zsh-hook precmd _zsh_tmux_auto_start
 fi
 
 export DOTNET_ROOT="/opt/homebrew/opt/dotnet/libexec"
