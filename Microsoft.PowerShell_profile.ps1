@@ -22,6 +22,12 @@ function .... { Set-Location ..\..\.. }
 function ..... { Set-Location ..\..\..\.. }
 function ...... { Set-Location ..\..\..\..\.. }
 
+function prompt {
+    $hostName = $env:COMPUTERNAME
+    $path = Get-Location
+    "[$hostName] PS $path> "
+}
+
 $env:TERM = "xterm-256color"
 
 [System.Threading.Thread]::CurrentThread.CurrentCulture = 'en-US'
