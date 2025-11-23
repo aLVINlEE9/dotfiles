@@ -33,6 +33,9 @@ return {
 			shfmt = {
 				prepend_args = { "-i", "4" },
 			},
+			isort = {
+				prepend_args = { "--line-ending", "lf" },
+			},
 		},
 	},
 	init = function()
