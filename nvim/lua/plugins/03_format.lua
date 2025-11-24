@@ -13,7 +13,7 @@ return {
 			bash = { "shfmt" },
 			zsh = { "shfmt" },
 			lua = { "stylua" },
-			python = { "isort", "black" },
+			python = { "isort" },
 			c = { "clang-format" },
 			cpp = { "clang-format" },
 			cmake = { "cmake_format" },
