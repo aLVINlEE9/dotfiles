@@ -13,7 +13,7 @@ return {
 			bash = { "shfmt" },
 			zsh = { "shfmt" },
 			lua = { "stylua" },
-			python = { "isort" },
+			python = { "isort", "black" },
 			c = { "clang-format" },
 			cpp = { "clang-format" },
 			cmake = { "cmake_format" },
@@ -34,16 +34,12 @@ return {
 				prepend_args = { "-i", "4" },
 			},
 			isort = {
-				args = function(_, ctx)
-					return {
-						"--stdout",
-						"--line-ending",
-						"lf",
-						"--filename",
-						"$FILENAME",
-						"-",
-					}
-				end,
+				args = {
+					"--stdout",
+					"--filename",
+					"$FILENAME",
+					"-", -- stdin
+				},
 			},
 		},
 	},
