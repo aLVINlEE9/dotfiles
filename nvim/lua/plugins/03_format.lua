@@ -34,7 +34,16 @@ return {
 				prepend_args = { "-i", "4" },
 			},
 			isort = {
-				prepend_args = { "--line-ending", "lf" },
+				args = function(_, ctx)
+					return {
+						"--stdout",
+						"--line-ending",
+						"lf",
+						"--filename",
+						"$FILENAME",
+						"-",
+					}
+				end,
 			},
 		},
 	},
