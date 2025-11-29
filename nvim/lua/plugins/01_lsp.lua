@@ -172,7 +172,10 @@ return {
 				on_attach = on_attach,
 				settings = {
 					python = {
-						pythonPath = vim.fn.getcwd() .. "/.venv/bin/python",
+						pythonPath = vim.fn.getcwd()
+							.. "/.venv/"
+							.. (vim.fn.has("win32") == 1 and "Scripts/python.exe" or "bin/python"),
+
 						analysis = {
 							typeCheckingMode = "basic",
 							autoSearchPaths = true,
