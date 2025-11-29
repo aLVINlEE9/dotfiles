@@ -172,6 +172,7 @@ return {
 				on_attach = on_attach,
 				settings = {
 					python = {
+						pythonPath = vim.fn.getcwd() .. "/.venv/bin/python",
 						analysis = {
 							typeCheckingMode = "basic",
 							autoSearchPaths = true,
