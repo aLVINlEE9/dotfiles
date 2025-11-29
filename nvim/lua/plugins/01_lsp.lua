@@ -170,12 +170,16 @@ return {
 			lspconfig.pyright.setup({
 				capabilities = capabilities,
 				on_attach = on_attach,
+				on_init = function(client)
+					local python_path = vim.fn.getcwd()
+						.. "/.venv/"
+						.. (vim.fn.has("win32") == 1 and "Scripts/python.exe" or "bin/python")
+
+					client.config.settings.python.pythonPath = python_path
+					client:notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+				end,
 				settings = {
 					python = {
-						pythonPath = vim.fn.getcwd()
-							.. "/.venv/"
-							.. (vim.fn.has("win32") == 1 and "Scripts/python.exe" or "bin/python"),
-
 						analysis = {
 							typeCheckingMode = "basic",
 							autoSearchPaths = true,
